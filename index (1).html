@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#ffffff"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="ScoreUp"/>
+<meta name="description" content="ScoreUp — India ka #1 AI Study Platform for JEE & NEET. Camera se doubt solve karo, backlog hatao, rank badhao!"/>
+<title>ScoreUp — AI Study Platform for JEE & NEET</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f8f9fc;--white:#ffffff;--text:#0d0d14;--muted:#6b7280;--border:#e5e7eb;
+  --primary:#6c47ff;--primary-light:#f0edff;--primary-dark:#5035cc;
+  --green:#059669;--green-light:#ecfdf5;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --red:#dc2626;--red-light:#fef2f2;
+  --blue:#2563eb;--blue-light:#eff6ff;
+  --r:14px;--rs:9px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px}
+.logo span{color:var(--primary)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-btn{padding:9px 18px;border-radius:var(--rs);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;text-decoration:none;display:inline-block}
+.nav-btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.nav-btn-primary{background:var(--primary);color:#fff;border:none;box-shadow:0 4px 14px rgba(108,71,255,0.3)}
+.nav-btn-primary:hover{background:var(--primary-dark)}
+
+/* ── HERO ── */
+.hero{max-width:1100px;margin:0 auto;padding:70px 20px 50px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--primary-light);color:var(--primary);padding:7px 16px;border-radius:30px;font-size:13px;font-weight:700;margin-bottom:24px;border:1px solid rgba(108,71,255,0.2)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--primary);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+h1{font-size:clamp(34px,5.5vw,66px);font-weight:800;line-height:1.1;letter-spacing:-2px;margin-bottom:18px}
+h1 .highlight{color:var(--primary)}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:var(--muted);max-width:540px;margin:0 auto 32px;line-height:1.6}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:50px}
+.btn-big{padding:15px 32px;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn-primary{background:var(--primary);color:#fff;border:none;box-shadow:0 6px 20px rgba(108,71,255,0.35)}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
+.btn-outline{background:#fff;color:var(--text);border:2px solid var(--border)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+
+/* ── STATS ── */
+.stats{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:36px 20px}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat-n{font-size:36px;font-weight:800;color:var(--primary);line-height:1}
+.stat-l{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* ── SECTIONS ── */
+.sec{max-width:1100px;margin:0 auto;padding:70px 20px}
+.sec-badge{font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+.sec-title{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px}
+.sec-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.6}
+
+/* ── APP SECTION ── */
+.app-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:70px 20px}
+.app-inner{max-width:860px;margin:0 auto}
+.app-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:28px;margin-top:32px}
+
+/* API Key input */
+.api-setup{background:var(--primary-light);border:1.5px solid rgba(108,71,255,0.25);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.api-setup p{font-size:13px;color:var(--primary);font-weight:600;margin-bottom:10px}
+.api-row{display:flex;gap:8px}
+.api-input{flex:1;padding:10px 14px;border-radius:var(--rs);border:1.5px solid rgba(108,71,255,0.3);background:#fff;font-size:14px;font-family:inherit;color:var(--text);outline:none}
+.api-input:focus{border-color:var(--primary)}
+.api-save-btn{padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+
+/* Subject + Class tabs */
+.tabs-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tab{padding:8px 16px;border-radius:30px;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;color:var(--muted)}
+.tab.active-phy{background:var(--blue-light);border-color:rgba(37,99,235,.3);color:var(--blue)}
+.tab.active-che{background:var(--green-light);border-color:rgba(5,150,105,.3);color:var(--green)}
+.tab.active-mat{background:var(--amber-light);border-color:rgba(217,119,6,.3);color:var(--amber)}
+.tab.active-bio{background:#fdf4ff;border-color:rgba(168,85,247,.3);color:#7c3aed}
+.tab.active-cls{background:var(--primary-light);border-color:rgba(108,71,255,.3);color:var(--primary)}
+
+/* Upload */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--r);background:#fff;min-height:160px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;position:relative;overflow:hidden;margin-bottom:12px;transition:border-color .2s}
+.upload-zone:hover{border-color:var(--primary)}
+.upload-zone.has-img{min-height:auto;border-style:solid}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2}
+#prev{width:100%;max-height:220px;object-fit:contain;display:none;background:#f0f0f0}
+.uz-ph{pointer-events:none;padding:20px}
+.uz-ic{font-size:38px;margin-bottom:8px}
+.uz-t{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.uz-s{font-size:12px;color:var(--muted)}
+.cam-btn{width:100%;padding:12px;border-radius:var(--rs);border:1.5px solid var(--border);background:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:12px;transition:all .15s;color:var(--text)}
+.cam-btn:hover{border-color:var(--primary);color:var(--primary)}
+.solve-btn{width:100%;padding:15px;border-radius:var(--r);background:var(--primary);color:#fff;border:none;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;box-shadow:0 4px 14px rgba(108,71,255,0.3)}
+.solve-btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
+.solve-btn:not(:disabled):active{transform:scale(0.98)}
+
+/* Loader */
+.loader{display:none;align-items:center;gap:12px;background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-top:14px}
+.loader.on{display:flex}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--border);border-top-color:var(--primary);animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.lmsg{font-size:13px;color:var(--muted)}
+.lmsg b{color:var(--text)}
+
+/* Result */
+.result{display:none;margin-top:16px;border-radius:var(--r);border:1px solid var(--border);background:#fff;overflow:hidden}
+.res-top{background:var(--green-light);border-bottom:1px solid rgba(5,150,105,.2);padding:13px 16px;display:flex;align-items:center;gap:8px}
+.res-top-lbl{font-size:11px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.1em}
+.res-correct{padding:14px 16px;font-size:18px;font-weight:800;color:var(--green);border-bottom:1px solid var(--border);letter-spacing:-.2px}
+.cf-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border)}
+.cf-lbl{font-size:11px;color:var(--muted);white-space:nowrap}
+.cf-bar{flex:1;height:5px;background:var(--bg);border-radius:3px;overflow:hidden}
+.cf-fill{height:100%;background:var(--green);border-radius:3px;width:0;transition:width .8s ease}
+.cf-val{font-size:12px;font-weight:800;color:var(--green);min-width:34px;text-align:right}
+.res-sec{padding:13px 16px;border-bottom:1px solid var(--border)}
+.res-sec:last-child{border-bottom:none}
+.res-lbl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.res-txt{font-size:14px;line-height:1.75;color:var(--text);white-space:pre-wrap}
+.opt-row{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--border)}
+.opt-row:last-child{border-bottom:none}
+.opt-l{min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.ol-c{background:var(--green);color:#fff}
+.ol-w{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+.opt-txt{flex:1;font-size:13px;line-height:1.5;color:var(--muted)}
+.opt-txt.oc{color:var(--text);font-weight:600}
+.opt-why{font-size:11px;color:var(--muted);margin-top:2px;opacity:.8}
+.opt-why.gc{color:var(--green);opacity:1}
+.tip-blk{margin:0 14px 14px;padding:12px 14px;background:var(--amber-light);border-radius:var(--rs);border-left:3px solid var(--amber)}
+.tip-lbl{font-size:10px;font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.tip-txt{font-size:13px;color:#92400e;line-height:1.6;white-space:pre-wrap}
+.tags-row{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--border)}
+.rtag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.t-sub{background:var(--blue-light);color:var(--blue)}
+.t-cls{background:var(--amber-light);color:var(--amber)}
+.t-ch{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+.t-easy{background:var(--green-light);color:var(--green)}
+.t-med{background:var(--amber-light);color:var(--amber)}
+.t-hard{background:var(--red-light);color:var(--red)}
+
+/* ── FEATURES ── */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:44px}
+.feat{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px 22px;display:flex;gap:14px;transition:box-shadow .2s}
+.feat:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+.feat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.feat h3{font-size:16px;font-weight:700;margin-bottom:5px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.6}
+.coming-soon{font-size:10px;font-weight:700;background:var(--amber-light);color:var(--amber);padding:2px 8px;border-radius:10px;margin-left:6px}
+
+/* ── HOW ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:44px}
+.step{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px 22px}
+.step-n{width:38px;height:38px;border-radius:10px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;margin-bottom:14px}
+.step h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ── CTA ── */
+.cta{background:var(--primary);padding:70px 20px;text-align:center;color:#fff}
+.cta h2{font-size:clamp(26px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.cta p{font-size:17px;opacity:.8;margin-bottom:30px}
+.btn-white{background:#fff;color:var(--primary);padding:15px 36px;border-radius:var(--r);font-size:16px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+
+/* ── FOOTER ── */
+footer{background:#fff;border-top:1px solid var(--border);padding:36px 20px;text-align:center}
+.footer-logo{font-size:22px;font-weight:800;margin-bottom:6px}
+.footer-logo span{color:var(--primary)}
+footer p{font-size:13px;color:var(--muted)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--text);color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;font-weight:600;transition:transform .25s;z-index:999;white-space:nowrap}
+.toast.on{transform:translateX(-50%) translateY(0)}
+
+/* Mobile */
+@media(max-width:600px){
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  h1{letter-spacing:-1px}
+  .nav-btn-outline{display:none}
+}
+
+/* Animations */
+.fade{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.fade.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Score<span>Up</span></div>
+  <div class="nav-right">
+    <a href="#features" class="nav-btn nav-btn-outline">Features</a>
+    <a href="#app" class="nav-btn nav-btn-primary">Free Try Karo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span class="pulse"></span>JEE & NEET · AI Powered · Bilkul Free</div>
+  <h1>Doubt solve karo<br><span class="highlight">camera se, 5 second mein</span></h1>
+  <p class="hero-sub">ScoreUp India ka pehla AI study platform hai — sirf photo lo aur instant answer, explanation, aur JEE/NEET tip pao.</p>
+  <div class="hero-btns">
+    <a href="#app" class="btn-big btn-primary">📸 Free Try Karo</a>
+    <a href="#how" class="btn-big btn-outline">Kaise kaam karta hai →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div><div class="stat-n">16L+</div><div class="stat-l">JEE/NEET aspirants</div></div>
+    <div><div class="stat-n">&lt;5s</div><div class="stat-l">Answer time</div></div>
+    <div><div class="stat-n">5</div><div class="stat-l">Subjects covered</div></div>
+    <div><div class="stat-n">₹0</div><div class="stat-l">Bilkul free</div></div>
+  </div>
+</div>
+
+<!-- APP SECTION -->
+<div class="app-section" id="app">
+  <div class="app-inner">
+    <div style="text-align:center;margin-bottom:8px">
+      <div class="sec-badge">Smart Doubt Solver</div>
+      <h2 class="sec-title" style="max-width:500px;margin:0 auto">Photo lo — AI solve karega</h2>
+    </div>
+    <div class="app-card">
+
+      <!-- API Key Setup -->
+      <div class="api-setup" id="api-setup">
+        <p>🔑 Apni Gemini API key daalo (aistudio.google.com se free milti hai)</p>
+        <div class="api-row">
+          <input type="password" id="api-key-input" class="api-input" placeholder="AIzaSy..."/>
+          <button class="api-save-btn" onclick="saveKey()">Save & Start</button>
+        </div>
+        <p style="font-size:11px;margin-top:8px;opacity:.7">Key sirf tere device mein save hoti hai — koi server pe nahi jaati 🔒</p>
+      </div>
+
+      <!-- Subject tabs -->
+      <div class="tabs-row">
+        <button class="tab active-phy" onclick="setSub('Physics',this)">⚡ Physics</button>
+        <button class="tab" onclick="setSub('Chemistry',this)">🧪 Chemistry</button>
+        <button class="tab" onclick="setSub('Mathematics',this)">📐 Math</button>
+        <button class="tab" onclick="setSub('Biology',this)">🧬 Biology</button>
+      </div>
+      <div class="tabs-row">
+        <button class="tab active-cls" onclick="setCls('11',this)">Class 11</button>
+        <button class="tab" onclick="setCls('12',this)">Class 12</button>
+      </div>
+
+      <!-- Upload -->
+      <div class="upload-zone" id="uz">
+        <input type="file" id="fi" accept="image/*"/>
+        <div class="uz-ph" id="ph">
+          <div class="uz-ic">📋</div>
+          <div class="uz-t">Question ki photo choose karo</div>
+          <div class="uz-s">Gallery se screenshot ya paper photo</div>
+        </div>
+        <img id="prev" src="" alt=""/>
+      </div>
+      <button class="cam-btn" onclick="openCam()">📸 Camera se seedha photo lo</button>
+      <input type="file" id="ci" accept="image/*" capture="environment" style="display:none"/>
+      <button class="solve-btn" id="sb" disabled onclick="solve()">⚡ Solve Karo</button>
+
+      <!-- Loader -->
+      <div class="loader" id="ld">
+        <div class="spin"></div>
+        <div class="lmsg" id="lm"><b>AI</b> question padh raha hai...</div>
+      </div>
+
+      <!-- Result -->
+      <div class="result" id="res">
+        <div class="tags-row" id="tags"></div>
+        <div class="res-top"><span style="font-size:18px">✅</span><span class="res-top-lbl">Correct Answer</span></div>
+        <div class="res-correct" id="rc"></div>
+        <div class="cf-row">
+          <span class="cf-lbl">AI Confidence</span>
+          <div class="cf-bar"><div class="cf-fill" id="cf"></div></div>
+          <span class="cf-val" id="cv">—</span>
+        </div>
+        <div class="res-sec">
+          <div class="res-lbl">Step-by-step Solution</div>
+          <div class="res-txt" id="ex"></div>
+        </div>
+        <div class="res-sec" id="ob"></div>
+        <div class="tip-blk">
+          <div class="tip-lbl">JEE/NEET Tip 🔥</div>
+          <div class="tip-txt" id="tip"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="sec" id="how">
+  <div class="fade" style="text-align:center">
+    <div class="sec-badge">Kaise kaam karta hai</div>
+    <h2 class="sec-title">3 steps — bas itna hi</h2>
+    <p class="sec-sub" style="margin:0 auto">Koi login nahi, koi setup nahi. Seedha solve karo.</p>
+  </div>
+  <div class="steps">
+    <div class="step fade">
+      <div class="step-n">1</div>
+      <h3>Photo lo</h3>
+      <p>Camera se question ki photo khicho — textbook, paper, ya screen kuch bhi.</p>
+    </div>
+    <div class="step fade">
+      <div class="step-n">2</div>
+      <h3>AI analyze karta hai</h3>
+      <p>ScoreUp AI khud detect karta hai — subject, chapter, difficulty — kuch select karne ki zaroorat nahi.</p>
+    </div>
+    <div class="step fade">
+      <div class="step-n">3</div>
+      <h3>Answer + Explanation</h3>
+      <p>Correct option + full solution + JEE/NEET tip — sab 5 second mein.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" id="features" style="padding-top:0">
+  <div class="fade" style="text-align:center">
+    <div class="sec-badge">Features</div>
+    <h2 class="sec-title">Sirf doubt solver nahi —<br>complete study platform</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--primary-light)">📸</div>
+      <div>
+        <h3>Smart Doubt Solver</h3>
+        <p>Camera se photo lo — AI instantly sahi answer, step-by-step solution, aur JEE/NEET tip deta hai.</p>
+      </div>
+    </div>
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--red-light)">🔥</div>
+      <div>
+        <h3>Backlog Killer <span class="coming-soon">Coming Soon</span></h3>
+        <p>Purane pending chapters AI se quickly revise karo — smart priority system se backlog khatam karo.</p>
+      </div>
+    </div>
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--green-light)">⏱️</div>
+      <div>
+        <h3>Smart Study Timer <span class="coming-soon">Coming Soon</span></h3>
+        <p>Pomodoro + AI — study sessions optimize karo, breaks smart tarike se lo.</p>
+      </div>
+    </div>
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--amber-light)">📚</div>
+      <div>
+        <h3>Formula Hub <span class="coming-soon">Coming Soon</span></h3>
+        <p>JEE/NEET ke saare important formulas ek jagah — quick revision ke liye.</p>
+      </div>
+    </div>
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--blue-light)">📊</div>
+      <div>
+        <h3>Performance Dashboard <span class="coming-soon">Coming Soon</span></h3>
+        <p>Apni weak areas track karo — AI batayega kahan focus karna hai.</p>
+      </div>
+    </div>
+    <div class="feat fade">
+      <div class="feat-icon" style="background:var(--primary-light)">🤖</div>
+      <div>
+        <h3>AI Study Planner <span class="coming-soon">Coming Soon</span></h3>
+        <p>Exam date se ulta calculate karke — personalized study plan banao AI se.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Score UP karna hai?<br>Shuru karo abhi.</h2>
+  <p>India ke 16 lakh JEE/NEET students compete karte hain. AI ka weapon use karo.</p>
+  <a href="#app" class="btn-white">📸 Free mein try karo →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Score<span>Up</span></div>
+  <p>AI-powered study platform for JEE & NEET · Made with ❤️ for Indian students</p>
+  <p style="margin-top:8px;font-size:12px">© 2025 ScoreUp · Bilkul Free · Hamesha</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var img64=null, apiKey=localStorage.getItem('su_key')||'', curSub='Physics', curCls='11';
+
+window.onload=function(){
+  if(apiKey){ document.getElementById('api-setup').style.display='none'; }
+};
+
+function saveKey(){
+  var k=document.getElementById('api-key-input').value.trim();
+  if(!k){ toast('API key daalo pehle!'); return; }
+  apiKey=k; localStorage.setItem('su_key',k);
+  document.getElementById('api-setup').style.display='none';
+  toast('✅ API key save ho gayi!');
+}
+
+function setSub(s,el){
+  curSub=s;
+  document.querySelectorAll('.tabs-row:first-of-type .tab').forEach(t=>t.className='tab');
+  var cls={Physics:'active-phy',Chemistry:'active-che',Mathematics:'active-mat',Biology:'active-bio'}[s]||'active-phy';
+  el.classList.add(cls);
+}
+
+function setCls(c,el){
+  curCls=c;
+  document.querySelectorAll('.tabs-row:last-of-type .tab').forEach(t=>t.className='tab');
+  el.classList.add('active-cls');
+}
+
+function openCam(){ document.getElementById('ci').click(); }
+
+function handleFile(f){
+  if(!f||!f.type.startsWith('image/'))return;
+  var r=new FileReader();
+  r.onload=function(e){
+    img64=e.target.result.split(',')[1];
+    var p=document.getElementById('prev');
+    p.src=e.target.result; p.style.display='block';
+    document.getElementById('ph').style.display='none';
+    document.getElementById('uz').classList.add('has-img');
+    document.getElementById('sb').disabled=false;
+    document.getElementById('res').style.display='none';
+    document.getElementById('ld').classList.remove('on');
+  };
+  r.readAsDataURL(f);
+}
+
+document.getElementById('fi').addEventListener('change',function(e){handleFile(e.target.files[0])});
+document.getElementById('ci').addEventListener('change',function(e){handleFile(e.target.files[0])});
+
+function toast(m){
+  var t=document.getElementById('toast');
+  t.textContent=m; t.classList.add('on');
+  setTimeout(function(){t.classList.remove('on')},2400);
+}
+
+var msgs=['<b>AI</b> question scan kar raha hai...','<b>Subject & chapter</b> detect ho raha hai...','<b>Answer</b> calculate ho raha hai...','Almost done...'];
+var mi=0,mt=null;
+function startMsgs(){ mi=0; document.getElementById('lm').innerHTML=msgs[0]; mt=setInterval(function(){mi=(mi+1)%msgs.length;document.getElementById('lm').innerHTML=msgs[mi];},1000); }
+function stopMsgs(){ clearInterval(mt); }
+
+async function solve(){
+  if(!img64){ toast('Pehle photo lo!'); return; }
+  if(!apiKey){ toast('API key daalo pehle!'); document.getElementById('api-setup').style.display='block'; return; }
+
+  var sb=document.getElementById('sb');
+  sb.disabled=true; sb.textContent='⏳ Solving...';
+  document.getElementById('ld').classList.add('on');
+  document.getElementById('res').style.display='none';
+  startMsgs();
+  setTimeout(function(){document.getElementById('ld').scrollIntoView({behavior:'smooth',block:'center'})},150);
+
+  var prompt='You are the best JEE/NEET AI solver for '+curSub+', Class '+curCls+'.\nLook at this MCQ image carefully and reply ONLY with valid JSON — no markdown, no extra text.\n\n{"subject":"'+curSub+'","class":"'+curCls+'","chapter":"chapter name","difficulty":"Easy/Medium/Hard","confidence":95,"correct_option":"A","correct_text":"full option text","explanation":"step by step solution with formulas, 4-5 lines","options":[{"letter":"A","text":"...","correct":true,"remark":"why correct"},{"letter":"B","text":"...","correct":false,"remark":"why wrong"},{"letter":"C","text":"...","correct":false,"remark":"why wrong"},{"letter":"D","text":"...","correct":false,"remark":"why wrong"}],"jee_tip":"one key shortcut or concept for exam"}\n\nRules: confidence=0-100. If Hindi question reply in Hindi. Show formula steps. Return ONLY JSON.';
+
+  try{
+    var resp=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='+apiKey,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:[
+          {inline_data:{mime_type:'image/jpeg',data:img64}},
+          {text:prompt}
+        ]}],
+        generationConfig:{temperature:0.1,maxOutputTokens:1500}
+      })
+    });
+    var data=await resp.json();
+    if(data.error){ throw new Error(data.error.message); }
+    var raw=data.candidates[0].content.parts[0].text||'';
+    var json;
+    try{ json=JSON.parse(raw.replace(/```json|```/g,'').trim()); }
+    catch(e){ var m=raw.match(/\{[\s\S]*\}/); if(m) json=JSON.parse(m[0]); else throw new Error('Parse error'); }
+    stopMsgs();
+    document.getElementById('ld').classList.remove('on');
+    renderResult(json);
+  }catch(err){
+    stopMsgs();
+    document.getElementById('ld').classList.remove('on');
+    toast('❌ Error: '+err.message);
+    if(err.message.includes('API_KEY')||err.message.includes('key')){
+      document.getElementById('api-setup').style.display='block';
+      apiKey=''; localStorage.removeItem('su_key');
+    }
+  }
+  sb.disabled=false; sb.textContent='⚡ Solve Karo';
+}
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderResult(j){
+  var diff=(j.difficulty||'').toLowerCase();
+  var dc=diff==='easy'?'t-easy':diff==='hard'?'t-hard':'t-med';
+  document.getElementById('tags').innerHTML=
+    '<span class="rtag t-sub">'+esc(j.subject||curSub)+'</span>'+
+    '<span class="rtag t-cls">Class '+esc(j.class||curCls)+'</span>'+
+    '<span class="rtag t-ch">'+esc(j.chapter||'—')+'</span>'+
+    '<span class="rtag '+dc+'">'+esc(j.difficulty||'—')+'</span>';
+
+  document.getElementById('rc').textContent=(j.correct_option||'?')+') '+(j.correct_text||'');
+
+  var conf=Math.min(100,Math.max(0,parseInt(j.confidence)||85));
+  setTimeout(function(){
+    document.getElementById('cf').style.width=conf+'%';
+    document.getElementById('cv').textContent=conf+'%';
+  },300);
+
+  document.getElementById('ex').textContent=j.explanation||'';
+
+  var ob=document.getElementById('ob');
+  if(j.options&&j.options.length){
+    ob.innerHTML='<div class="res-lbl">Options Analysis</div>';
+    j.options.forEach(function(o){
+      var c=o.correct;
+      ob.innerHTML+='<div class="opt-row"><div class="opt-l '+(c?'ol-c':'ol-w')+'">'+esc(o.letter)+'</div>'+
+        '<div class="opt-txt '+(c?'oc':'')+'">'+esc(o.text||'')+
+        '<div class="opt-why '+(c?'gc':'')+'">↳ '+esc(o.remark||'')+'</div></div></div>';
+    });
+  } else { ob.innerHTML=''; }
+
+  document.getElementById('tip').textContent=j.jee_tip||'';
+
+  var res=document.getElementById('res');
+  res.style.display='block';
+  setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'})},100);
+  toast('✅ Answer ready!');
+}
+
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.fade').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>

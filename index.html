@@ -24,7 +24,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-/* ── NAV ── */
+/* NAV */
 nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .logo{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.5px}
 .logo span{color:var(--primary)}
@@ -34,7 +34,7 @@ nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1
 .nav-btn-primary{background:var(--primary);color:#fff;border:none;box-shadow:0 4px 14px rgba(108,71,255,0.3)}
 .nav-btn-primary:hover{background:var(--primary-dark)}
 
-/* ── HERO ── */
+/* HERO */
 .hero{max-width:1100px;margin:0 auto;padding:70px 20px 50px;text-align:center}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--primary-light);color:var(--primary);padding:7px 16px;border-radius:30px;font-size:13px;font-weight:700;margin-bottom:24px;border:1px solid rgba(108,71,255,0.2)}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--primary);animation:pulse 2s infinite}
@@ -49,30 +49,36 @@ h1 .highlight{color:var(--primary)}
 .btn-outline{background:#fff;color:var(--text);border:2px solid var(--border)}
 .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
 
-/* ── STATS ── */
+/* STATS */
 .stats{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:36px 20px}
 .stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
 .stat-n{font-size:36px;font-weight:800;color:var(--primary);line-height:1}
 .stat-l{font-size:13px;color:var(--muted);margin-top:4px}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .sec{max-width:1100px;margin:0 auto;padding:70px 20px}
 .sec-badge{font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
 .sec-title{font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px}
 .sec-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.6}
 
-/* ── APP SECTION ── */
+/* APP SECTION */
 .app-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:70px 20px}
 .app-inner{max-width:860px;margin:0 auto}
 .app-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:28px;margin-top:32px}
 
-/* API Key input */
-.api-setup{background:var(--primary-light);border:1.5px solid rgba(108,71,255,0.25);border-radius:var(--r);padding:20px;margin-bottom:20px}
-.api-setup p{font-size:13px;color:var(--primary);font-weight:600;margin-bottom:10px}
+/* ── API PROVIDER SWITCHER ── */
+.provider-box{background:var(--primary-light);border:1.5px solid rgba(108,71,255,0.25);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.provider-title{font-size:13px;color:var(--primary);font-weight:700;margin-bottom:12px}
+.provider-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.ptab{padding:8px 16px;border-radius:30px;border:1.5px solid rgba(108,71,255,0.25);background:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--muted);transition:all .15s}
+.ptab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.provider-hint{font-size:11px;color:var(--primary);opacity:.75;margin-bottom:10px}
 .api-row{display:flex;gap:8px}
 .api-input{flex:1;padding:10px 14px;border-radius:var(--rs);border:1.5px solid rgba(108,71,255,0.3);background:#fff;font-size:14px;font-family:inherit;color:var(--text);outline:none}
 .api-input:focus{border-color:var(--primary)}
 .api-save-btn{padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.saved-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);border:1px solid rgba(5,150,105,.2);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;margin-top:8px}
+.change-btn{background:none;border:none;color:var(--primary);font-size:12px;font-weight:700;cursor:pointer;text-decoration:underline;margin-left:8px;font-family:inherit}
 
 /* Subject + Class tabs */
 .tabs-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
@@ -142,7 +148,7 @@ h1 .highlight{color:var(--primary)}
 .t-med{background:var(--amber-light);color:var(--amber)}
 .t-hard{background:var(--red-light);color:var(--red)}
 
-/* ── FEATURES ── */
+/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:44px}
 .feat{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px 22px;display:flex;gap:14px;transition:box-shadow .2s}
 .feat:hover{box-shadow:0 8px 30px rgba(0,0,0,0.08)}
@@ -151,27 +157,27 @@ h1 .highlight{color:var(--primary)}
 .feat p{font-size:13px;color:var(--muted);line-height:1.6}
 .coming-soon{font-size:10px;font-weight:700;background:var(--amber-light);color:var(--amber);padding:2px 8px;border-radius:10px;margin-left:6px}
 
-/* ── HOW ── */
+/* HOW */
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:44px}
 .step{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px 22px}
 .step-n{width:38px;height:38px;border-radius:10px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;margin-bottom:14px}
 .step h3{font-size:16px;font-weight:700;margin-bottom:6px}
 .step p{font-size:13px;color:var(--muted);line-height:1.6}
 
-/* ── CTA ── */
+/* CTA */
 .cta{background:var(--primary);padding:70px 20px;text-align:center;color:#fff}
 .cta h2{font-size:clamp(26px,4vw,48px);font-weight:800;letter-spacing:-1px;margin-bottom:12px}
 .cta p{font-size:17px;opacity:.8;margin-bottom:30px}
 .btn-white{background:#fff;color:var(--primary);padding:15px 36px;border-radius:var(--r);font-size:16px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{background:#fff;border-top:1px solid var(--border);padding:36px 20px;text-align:center}
 .footer-logo{font-size:22px;font-weight:800;margin-bottom:6px}
 .footer-logo span{color:var(--primary)}
 footer p{font-size:13px;color:var(--muted)}
 
-/* ── TOAST ── */
+/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--text);color:#fff;padding:10px 20px;border-radius:30px;font-size:13px;font-weight:600;transition:transform .25s;z-index:999;white-space:nowrap}
 .toast.on{transform:translateX(-50%) translateY(0)}
 
@@ -228,14 +234,36 @@ footer p{font-size:13px;color:var(--muted)}
     </div>
     <div class="app-card">
 
-      <!-- API Key Setup -->
-      <div class="api-setup" id="api-setup">
-        <p>🔑 Apni OpenRouter API key daalo (openrouter.ai se free milti hai)</p>
-        <div class="api-row">
-          <input type="password" id="api-key-input" class="api-input" placeholder="sk-or-..."/>
-          <button class="api-save-btn" onclick="saveKey()">Save & Start</button>
+      <!-- ── API PROVIDER SETUP ── -->
+      <div class="provider-box" id="provider-box">
+        <div class="provider-title">⚙️ AI Provider choose karo & API Key daalo</div>
+
+        <!-- Provider Tabs -->
+        <div class="provider-tabs">
+          <button class="ptab active" id="pt-gemini" onclick="setProvider('gemini')">🔵 Gemini</button>
+          <button class="ptab" id="pt-openai" onclick="setProvider('openai')">🟢 OpenAI</button>
+          <button class="ptab" id="pt-openrouter" onclick="setProvider('openrouter')">🟠 OpenRouter</button>
         </div>
-        <p style="font-size:11px;margin-top:8px;opacity:.7">Key sirf tere device mein save hoti hai — koi server pe nahi jaati 🔒</p>
+
+        <!-- Hint text -->
+        <div class="provider-hint" id="provider-hint">
+          aistudio.google.com se free Gemini API key lo
+        </div>
+
+        <!-- Key Input -->
+        <div id="key-input-area">
+          <div class="api-row">
+            <input type="password" id="api-key-input" class="api-input" placeholder="API key yahan paste karo..."/>
+            <button class="api-save-btn" onclick="saveKey()">Save ✓</button>
+          </div>
+          <p style="font-size:11px;margin-top:8px;opacity:.7;color:var(--primary)">🔒 Key sirf tere device mein save hoti hai — koi server pe nahi jaati</p>
+        </div>
+
+        <!-- Saved state -->
+        <div id="saved-area" style="display:none">
+          <div class="saved-badge">✅ <span id="saved-provider-name">Gemini</span> key saved!</div>
+          <button class="change-btn" onclick="changeKey()">Change karein?</button>
+        </div>
       </div>
 
       <!-- Subject tabs -->
@@ -330,45 +358,27 @@ footer p{font-size:13px;color:var(--muted)}
   <div class="features-grid">
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--primary-light)">📸</div>
-      <div>
-        <h3>Smart Doubt Solver</h3>
-        <p>Camera se photo lo — AI instantly sahi answer, step-by-step solution, aur JEE/NEET tip deta hai.</p>
-      </div>
+      <div><h3>Smart Doubt Solver</h3><p>Camera se photo lo — AI instantly sahi answer, step-by-step solution, aur JEE/NEET tip deta hai.</p></div>
     </div>
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--red-light)">🔥</div>
-      <div>
-        <h3>Backlog Killer <span class="coming-soon">Coming Soon</span></h3>
-        <p>Purane pending chapters AI se quickly revise karo — smart priority system se backlog khatam karo.</p>
-      </div>
+      <div><h3>Backlog Killer <span class="coming-soon">Coming Soon</span></h3><p>Purane pending chapters AI se quickly revise karo — smart priority system se backlog khatam karo.</p></div>
     </div>
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--green-light)">⏱️</div>
-      <div>
-        <h3>Smart Study Timer <span class="coming-soon">Coming Soon</span></h3>
-        <p>Pomodoro + AI — study sessions optimize karo, breaks smart tarike se lo.</p>
-      </div>
+      <div><h3>Smart Study Timer <span class="coming-soon">Coming Soon</span></h3><p>Pomodoro + AI — study sessions optimize karo, breaks smart tarike se lo.</p></div>
     </div>
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--amber-light)">📚</div>
-      <div>
-        <h3>Formula Hub <span class="coming-soon">Coming Soon</span></h3>
-        <p>JEE/NEET ke saare important formulas ek jagah — quick revision ke liye.</p>
-      </div>
+      <div><h3>Formula Hub <span class="coming-soon">Coming Soon</span></h3><p>JEE/NEET ke saare important formulas ek jagah — quick revision ke liye.</p></div>
     </div>
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--blue-light)">📊</div>
-      <div>
-        <h3>Performance Dashboard <span class="coming-soon">Coming Soon</span></h3>
-        <p>Apni weak areas track karo — AI batayega kahan focus karna hai.</p>
-      </div>
+      <div><h3>Performance Dashboard <span class="coming-soon">Coming Soon</span></h3><p>Apni weak areas track karo — AI batayega kahan focus karna hai.</p></div>
     </div>
     <div class="feat fade">
       <div class="feat-icon" style="background:var(--primary-light)">🤖</div>
-      <div>
-        <h3>AI Study Planner <span class="coming-soon">Coming Soon</span></h3>
-        <p>Exam date se ulta calculate karke — personalized study plan banao AI se.</p>
-      </div>
+      <div><h3>AI Study Planner <span class="coming-soon">Coming Soon</span></h3><p>Exam date se ulta calculate karke — personalized study plan banao AI se.</p></div>
     </div>
   </div>
 </section>
@@ -390,30 +400,85 @@ footer p{font-size:13px;color:var(--muted)}
 <div class="toast" id="toast"></div>
 
 <script>
-var img64=null, apiKey=localStorage.getItem('su_key')||'', curSub='Physics', curCls='11';
+var img64=null, curSub='Physics', curCls='11';
+var curProvider = localStorage.getItem('su_provider') || 'gemini';
+var apiKey = localStorage.getItem('su_key_' + curProvider) || '';
 
-window.onload=function(){
-  if(apiKey){ document.getElementById('api-setup').style.display='none'; }
+var providerInfo = {
+  gemini: {
+    name: 'Gemini',
+    hint: 'aistudio.google.com se free Gemini API key lo',
+    placeholder: 'AIza...'
+  },
+  openai: {
+    name: 'OpenAI',
+    hint: 'platform.openai.com se OpenAI API key lo',
+    placeholder: 'sk-...'
+  },
+  openrouter: {
+    name: 'OpenRouter',
+    hint: 'openrouter.ai se free API key lo (100+ models)',
+    placeholder: 'sk-or-...'
+  }
 };
 
+window.onload = function(){
+  setProvider(curProvider, true);
+};
+
+function setProvider(p, init){
+  curProvider = p;
+  localStorage.setItem('su_provider', p);
+  apiKey = localStorage.getItem('su_key_' + p) || '';
+
+  // Update tab UI
+  document.querySelectorAll('.ptab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('pt-' + p).classList.add('active');
+
+  // Update hint & placeholder
+  document.getElementById('provider-hint').textContent = providerInfo[p].hint;
+  document.getElementById('api-key-input').placeholder = providerInfo[p].placeholder;
+  document.getElementById('saved-provider-name').textContent = providerInfo[p].name;
+
+  if(apiKey){
+    document.getElementById('key-input-area').style.display = 'none';
+    document.getElementById('saved-area').style.display = 'block';
+  } else {
+    document.getElementById('key-input-area').style.display = 'block';
+    document.getElementById('saved-area').style.display = 'none';
+    document.getElementById('api-key-input').value = '';
+  }
+}
+
 function saveKey(){
-  var k=document.getElementById('api-key-input').value.trim();
+  var k = document.getElementById('api-key-input').value.trim();
   if(!k){ toast('API key daalo pehle!'); return; }
-  apiKey=k; localStorage.setItem('su_key',k);
-  document.getElementById('api-setup').style.display='none';
-  toast('✅ API key save ho gayi!');
+  apiKey = k;
+  localStorage.setItem('su_key_' + curProvider, k);
+  document.getElementById('key-input-area').style.display = 'none';
+  document.getElementById('saved-area').style.display = 'block';
+  document.getElementById('saved-provider-name').textContent = providerInfo[curProvider].name;
+  toast('✅ ' + providerInfo[curProvider].name + ' key save ho gayi!');
+}
+
+function changeKey(){
+  apiKey = '';
+  localStorage.removeItem('su_key_' + curProvider);
+  document.getElementById('key-input-area').style.display = 'block';
+  document.getElementById('saved-area').style.display = 'none';
+  document.getElementById('api-key-input').value = '';
 }
 
 function setSub(s,el){
   curSub=s;
-  document.querySelectorAll('.tabs-row:first-of-type .tab').forEach(t=>t.className='tab');
+  document.querySelectorAll('.tabs-row:first-of-type .tab').forEach(function(t){t.className='tab';});
   var cls={Physics:'active-phy',Chemistry:'active-che',Mathematics:'active-mat',Biology:'active-bio'}[s]||'active-phy';
   el.classList.add(cls);
 }
 
 function setCls(c,el){
   curCls=c;
-  document.querySelectorAll('.tabs-row:last-of-type .tab').forEach(t=>t.className='tab');
+  document.querySelectorAll('.tabs-row:last-of-type .tab').forEach(function(t){t.className='tab';});
   el.classList.add('active-cls');
 }
 
@@ -435,13 +500,13 @@ function handleFile(f){
   r.readAsDataURL(f);
 }
 
-document.getElementById('fi').addEventListener('change',function(e){handleFile(e.target.files[0])});
-document.getElementById('ci').addEventListener('change',function(e){handleFile(e.target.files[0])});
+document.getElementById('fi').addEventListener('change',function(e){handleFile(e.target.files[0]);});
+document.getElementById('ci').addEventListener('change',function(e){handleFile(e.target.files[0]);});
 
 function toast(m){
   var t=document.getElementById('toast');
   t.textContent=m; t.classList.add('on');
-  setTimeout(function(){t.classList.remove('on')},2400);
+  setTimeout(function(){t.classList.remove('on');},2400);
 }
 
 var msgs=['<b>AI</b> question scan kar raha hai...','<b>Subject & chapter</b> detect ho raha hai...','<b>Answer</b> calculate ho raha hai...','Almost done...'];
@@ -449,47 +514,37 @@ var mi=0,mt=null;
 function startMsgs(){ mi=0; document.getElementById('lm').innerHTML=msgs[0]; mt=setInterval(function(){mi=(mi+1)%msgs.length;document.getElementById('lm').innerHTML=msgs[mi];},1000); }
 function stopMsgs(){ clearInterval(mt); }
 
+var prompt = function(){
+  return 'You are the best JEE/NEET AI solver for '+curSub+', Class '+curCls+'.\nLook at this MCQ image carefully and reply ONLY with valid JSON — no markdown, no extra text.\n\n{"subject":"'+curSub+'","class":"'+curCls+'","chapter":"chapter name","difficulty":"Easy/Medium/Hard","confidence":95,"correct_option":"A","correct_text":"full option text","explanation":"step by step solution with formulas, 4-5 lines","options":[{"letter":"A","text":"...","correct":true,"remark":"why correct"},{"letter":"B","text":"...","correct":false,"remark":"why wrong"},{"letter":"C","text":"...","correct":false,"remark":"why wrong"},{"letter":"D","text":"...","correct":false,"remark":"why wrong"}],"jee_tip":"one key shortcut or concept for exam"}\n\nRules: confidence=0-100. If Hindi question reply in Hindi. Show formula steps. Return ONLY JSON.';
+};
+
 async function solve(){
   if(!img64){ toast('Pehle photo lo!'); return; }
-  if(!apiKey){ toast('API key daalo pehle!'); document.getElementById('api-setup').style.display='block'; return; }
+  if(!apiKey){
+    toast('API key daalo pehle!');
+    document.getElementById('key-input-area').style.display='block';
+    document.getElementById('saved-area').style.display='none';
+    return;
+  }
 
   var sb=document.getElementById('sb');
   sb.disabled=true; sb.textContent='⏳ Solving...';
   document.getElementById('ld').classList.add('on');
   document.getElementById('res').style.display='none';
   startMsgs();
-  setTimeout(function(){document.getElementById('ld').scrollIntoView({behavior:'smooth',block:'center'})},150);
-
-  var prompt='You are the best JEE/NEET AI solver for '+curSub+', Class '+curCls+'.\nLook at this MCQ image carefully and reply ONLY with valid JSON — no markdown, no extra text.\n\n{"subject":"'+curSub+'","class":"'+curCls+'","chapter":"chapter name","difficulty":"Easy/Medium/Hard","confidence":95,"correct_option":"A","correct_text":"full option text","explanation":"step by step solution with formulas, 4-5 lines","options":[{"letter":"A","text":"...","correct":true,"remark":"why correct"},{"letter":"B","text":"...","correct":false,"remark":"why wrong"},{"letter":"C","text":"...","correct":false,"remark":"why wrong"},{"letter":"D","text":"...","correct":false,"remark":"why wrong"}],"jee_tip":"one key shortcut or concept for exam"}\n\nRules: confidence=0-100. If Hindi question reply in Hindi. Show formula steps. Return ONLY JSON.';
+  setTimeout(function(){document.getElementById('ld').scrollIntoView({behavior:'smooth',block:'center'});},150);
 
   try{
-    var resp=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'Authorization':'Bearer '+apiKey,
-        'HTTP-Referer':'https://scoreupp.netlify.app',
-        'X-Title':'ScoreUp'
-      },
-      body:JSON.stringify({
-        model:'meta-llama/llama-3.2-11b-vision-instruct:free',
-        messages:[{
-          role:'user',
-          content:[
-            {type:'image_url',image_url:{url:'data:image/jpeg;base64,'+img64}},
-            {type:'text',text:prompt}
-          ]
-        }],
-        max_tokens:1500,
-        temperature:0.1
-      })
-    });
-    var data=await resp.json();
-    if(data.error){ throw new Error(data.error.message||'API Error'); }
-    var raw=data.choices[0].message.content||'';
+    var raw='';
+    if(curProvider === 'gemini'){
+      raw = await callGemini();
+    } else {
+      raw = await callOpenAICompatible();
+    }
+
     var json;
     try{ json=JSON.parse(raw.replace(/```json|```/g,'').trim()); }
-    catch(e){ var m=raw.match(/\{[\s\S]*\}/); if(m) json=JSON.parse(m[0]); else throw new Error('Parse error'); }
+    catch(e){ var m=raw.match(/\{[\s\S]*\}/); if(m) json=JSON.parse(m[0]); else throw new Error('Parse error — AI ne JSON nahi diya'); }
     stopMsgs();
     document.getElementById('ld').classList.remove('on');
     renderResult(json);
@@ -497,12 +552,67 @@ async function solve(){
     stopMsgs();
     document.getElementById('ld').classList.remove('on');
     toast('❌ Error: '+err.message);
-    if(err.message.includes('API_KEY')||err.message.includes('key')){
-      document.getElementById('api-setup').style.display='block';
-      apiKey=''; localStorage.removeItem('su_key');
+    if(err.message.toLowerCase().includes('key')||err.message.toLowerCase().includes('auth')||err.message.toLowerCase().includes('invalid')){
+      changeKey();
     }
   }
   sb.disabled=false; sb.textContent='⚡ Solve Karo';
+}
+
+async function callGemini(){
+  var resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      contents:[{parts:[
+        {inline_data:{mime_type:'image/jpeg',data:img64}},
+        {text:prompt()}
+      ]}],
+      generationConfig:{temperature:0.1,maxOutputTokens:1500}
+    })
+  });
+  var data=await resp.json();
+  if(data.error){ throw new Error(data.error.message); }
+  return data.candidates[0].content.parts[0].text||'';
+}
+
+async function callOpenAICompatible(){
+  var baseURL = curProvider === 'openai'
+    ? 'https://api.openai.com/v1/chat/completions'
+    : 'https://openrouter.ai/api/v1/chat/completions';
+
+  var model = curProvider === 'openai'
+    ? 'gpt-4o'
+    : 'qwen/qwen2.5-vl-72b-instruct:free';
+
+  var headers = {
+    'Content-Type':'application/json',
+    'Authorization':'Bearer '+apiKey
+  };
+  if(curProvider === 'openrouter'){
+    headers['HTTP-Referer'] = 'https://scoreupp.netlify.app';
+    headers['X-Title'] = 'ScoreUp';
+  }
+
+  var resp = await fetch(baseURL,{
+    method:'POST',
+    headers: headers,
+    body:JSON.stringify({
+      model: model,
+      messages:[{
+        role:'user',
+        content:[
+          {type:'image_url',image_url:{url:'data:image/jpeg;base64,'+img64}},
+          {type:'text',text:prompt()}
+        ]
+      }],
+      max_tokens:1500,
+      temperature:0.1
+    })
+  });
+  var data=await resp.json();
+  if(data.error){ throw new Error(data.error.message||'API Error'); }
+  return data.choices[0].message.content||'';
 }
 
 function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -541,7 +651,7 @@ function renderResult(j){
 
   var res=document.getElementById('res');
   res.style.display='block';
-  setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'})},100);
+  setTimeout(function(){res.scrollIntoView({behavior:'smooth',block:'start'});},100);
   toast('✅ Answer ready!');
 }
 

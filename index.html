@@ -230,7 +230,7 @@ footer p{font-size:13px;color:var(--muted)}
 
       <!-- API Key Setup -->
       <div class="api-setup" id="api-setup">
-        <p>🔑 Apni Gemini API key daalo (openrouter.ai se free milti hai)</p>
+        <p>🔑 Apni OpenRouter API key daalo (openrouter.ai se free milti hai)</p>
         <div class="api-row">
           <input type="password" id="api-key-input" class="api-input" placeholder="sk-or-..."/>
           <button class="api-save-btn" onclick="saveKey()">Save & Start</button>
@@ -472,7 +472,7 @@ async function solve(){
         'X-Title':'ScoreUp'
       },
       body:JSON.stringify({
-        model:'google/gemini-2.0-flash-exp:free',
+        model:'meta-llama/llama-3.2-11b-vision-instruct:free',
         messages:[{
           role:'user',
           content:[

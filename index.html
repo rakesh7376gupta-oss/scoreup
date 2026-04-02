@@ -188,6 +188,29 @@ footer p{font-size:13px;color:var(--muted)}
   .nav-btn-outline{display:none}
 }
 
+/* MODE SWITCHER */
+.mode-switch{display:flex;background:var(--bg);border:1.5px solid var(--border);border-radius:30px;padding:4px;margin-bottom:20px;gap:4px}
+.mode-btn{flex:1;padding:10px;border-radius:25px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;color:var(--muted);background:transparent}
+.mode-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(108,71,255,0.3)}
+
+/* CHAT */
+.chat-box{background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.chat-messages{min-height:200px;max-height:400px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.6}
+.chat-msg.user{background:var(--primary);color:#fff;align-self:flex-end;border-radius:12px 12px 2px 12px}
+.chat-msg.ai{background:var(--bg);color:var(--text);align-self:flex-start;border-radius:12px 12px 12px 2px;border:1px solid var(--border);white-space:pre-wrap}
+.chat-msg.ai.thinking{color:var(--muted);font-style:italic}
+.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#fff}
+.chat-input{flex:1;padding:10px 14px;border-radius:var(--rs);border:1.5px solid var(--border);font-size:14px;font-family:inherit;color:var(--text);outline:none;resize:none;min-height:42px;max-height:120px}
+.chat-input:focus{border-color:var(--primary)}
+.chat-send-btn{padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:var(--rs);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
+.chat-send-btn:disabled{opacity:.4;cursor:not-allowed}
+.chat-empty{text-align:center;padding:40px 20px;color:var(--muted)}
+.chat-empty-ic{font-size:32px;margin-bottom:8px}
+.chat-empty-t{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--text)}
+.chat-empty-s{font-size:12px}
+.chat-clear{font-size:11px;color:var(--muted);text-align:right;padding:4px 16px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%}
+
 /* Animations */
 .fade{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .fade.in{opacity:1;transform:none}
@@ -266,6 +289,15 @@ footer p{font-size:13px;color:var(--muted)}
         </div>
       </div>
 
+      <!-- MODE SWITCHER -->
+      <div class="mode-switch">
+        <button class="mode-btn active" id="mode-photo" onclick="setMode('photo')">📸 Photo se Solve</button>
+        <button class="mode-btn" id="mode-chat" onclick="setMode('chat')">💬 Question Pucho</button>
+      </div>
+
+      <!-- PHOTO MODE -->
+      <div id="photo-mode">
+
       <!-- Subject tabs -->
       <div class="tabs-row">
         <button class="tab active-phy" onclick="setSub('Physics',this)">⚡ Physics</button>
@@ -318,6 +350,26 @@ footer p{font-size:13px;color:var(--muted)}
           <div class="tip-txt" id="tip"></div>
         </div>
       </div>
+
+      </div><!-- end photo-mode -->
+
+      <!-- CHAT MODE -->
+      <div id="chat-mode" style="display:none">
+        <div class="chat-box">
+          <div class="chat-messages" id="chat-messages">
+            <div class="chat-empty" id="chat-empty">
+              <div class="chat-empty-ic">🤖</div>
+              <div class="chat-empty-t">AI Study Assistant</div>
+              <div class="chat-empty-s">JEE/NEET ke koi bhi question pucho — Physics, Chemistry, Math, Biology!</div>
+            </div>
+          </div>
+          <button class="chat-clear" id="chat-clear-btn" onclick="clearChat()" style="display:none">🗑️ Chat clear karo</button>
+          <div class="chat-input-row">
+            <textarea class="chat-input" id="chat-input" placeholder="Question yahan likho... (e.g. Newton ka second law kya hai?)" rows="1" onkeydown="chatKeydown(event)"></textarea>
+            <button class="chat-send-btn" id="chat-send" onclick="sendChat()">Send ➤</button>
+          </div>
+        </div>
+      </div><!-- end chat-mode -->
 
     </div>
   </div>
@@ -400,7 +452,106 @@ footer p{font-size:13px;color:var(--muted)}
 <div class="toast" id="toast"></div>
 
 <script>
-var img64=null, curSub='Physics', curCls='11';
+// ── MODE SWITCH ──
+var curMode = 'photo';
+function setMode(m){
+  curMode = m;
+  document.getElementById('photo-mode').style.display = m==='photo' ? 'block' : 'none';
+  document.getElementById('chat-mode').style.display = m==='chat' ? 'block' : 'none';
+  document.getElementById('mode-photo').classList.toggle('active', m==='photo');
+  document.getElementById('mode-chat').classList.toggle('active', m==='chat');
+}
+
+// ── CHAT ──
+var chatHistory = [];
+
+function chatKeydown(e){
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); }
+}
+
+function clearChat(){
+  chatHistory = [];
+  var cm = document.getElementById('chat-messages');
+  cm.innerHTML = '<div class="chat-empty" id="chat-empty"><div class="chat-empty-ic">🤖</div><div class="chat-empty-t">AI Study Assistant</div><div class="chat-empty-s">JEE/NEET ke koi bhi question pucho — Physics, Chemistry, Math, Biology!</div></div>';
+  document.getElementById('chat-clear-btn').style.display = 'none';
+}
+
+function addMsg(text, role){
+  var cm = document.getElementById('chat-messages');
+  var empty = document.getElementById('chat-empty');
+  if(empty) empty.remove();
+  document.getElementById('chat-clear-btn').style.display = 'block';
+  var div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.textContent = text;
+  cm.appendChild(div);
+  cm.scrollTop = cm.scrollHeight;
+  return div;
+}
+
+async function sendChat(){
+  if(!apiKey){ toast('Pehle API key daalo!'); return; }
+  var inp = document.getElementById('chat-input');
+  var q = inp.value.trim();
+  if(!q) return;
+  inp.value = '';
+  inp.style.height = 'auto';
+
+  addMsg(q, 'user');
+  chatHistory.push({role:'user', content: q});
+
+  var btn = document.getElementById('chat-send');
+  btn.disabled = true;
+  var thinking = addMsg('AI soch raha hai... 🤔', 'ai thinking');
+
+  try{
+    var systemPrompt = 'You are ScoreUp AI — India ka best JEE/NEET study assistant. Answer in the same language as the question (Hindi or English). Give clear, step-by-step explanations with formulas. Be concise but thorough. Add exam tips when relevant.';
+    var messages = [{role:'user', content: systemPrompt + '\n\nStudent ka question: ' + q}];
+    if(chatHistory.length > 2){
+      messages = [{role:'user', content: systemPrompt}];
+      chatHistory.slice(-6).forEach(function(m){ messages.push(m); });
+    }
+
+    var reply = '';
+    if(curProvider === 'gemini'){
+      var gemMsgs = chatHistory.slice(-6).map(function(m){
+        return {role: m.role==='assistant'?'model':'user', parts:[{text:m.content}]};
+      });
+      var resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          system_instruction:{parts:[{text:systemPrompt}]},
+          contents: gemMsgs,
+          generationConfig:{temperature:0.3, maxOutputTokens:1500}
+        })
+      });
+      var data = await resp.json();
+      if(data.error) throw new Error(data.error.message);
+      reply = data.candidates[0].content.parts[0].text || '';
+    } else {
+      var baseURL = curProvider==='openai' ? 'https://api.openai.com/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
+      var model = curProvider==='openai' ? 'gpt-4o-mini' : 'meta-llama/llama-4-maverick:free';
+      var hdrs = {'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
+      if(curProvider==='openrouter'){hdrs['HTTP-Referer']='https://scoreupp.netlify.app';hdrs['X-Title']='ScoreUp';}
+      var oaMsgs = [{role:'system',content:systemPrompt}].concat(chatHistory.slice(-6));
+      var resp2 = await fetch(baseURL,{method:'POST',headers:hdrs,body:JSON.stringify({model:model,messages:oaMsgs,max_tokens:1500,temperature:0.3})});
+      var data2 = await resp2.json();
+      if(data2.error) throw new Error(data2.error.message||'API Error');
+      reply = data2.choices[0].message.content || '';
+    }
+
+    thinking.remove();
+    addMsg(reply, 'ai');
+    chatHistory.push({role:'assistant', content: reply});
+  } catch(err){
+    thinking.remove();
+    addMsg('❌ Error: ' + err.message, 'ai');
+  }
+  btn.disabled = false;
+}
+
+
 var curProvider = localStorage.getItem('su_provider') || 'gemini';
 var apiKey = localStorage.getItem('su_key_' + curProvider) || '';
 

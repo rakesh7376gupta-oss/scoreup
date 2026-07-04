@@ -188,29 +188,6 @@ footer p{font-size:13px;color:var(--muted)}
   .nav-btn-outline{display:none}
 }
 
-/* MODE SWITCHER */
-.mode-switch{display:flex;background:var(--bg);border:1.5px solid var(--border);border-radius:30px;padding:4px;margin-bottom:20px;gap:4px}
-.mode-btn{flex:1;padding:10px;border-radius:25px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;color:var(--muted);background:transparent}
-.mode-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(108,71,255,0.3)}
-
-/* CHAT */
-.chat-box{background:#fff;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
-.chat-messages{min-height:200px;max-height:400px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
-.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.6}
-.chat-msg.user{background:var(--primary);color:#fff;align-self:flex-end;border-radius:12px 12px 2px 12px}
-.chat-msg.ai{background:var(--bg);color:var(--text);align-self:flex-start;border-radius:12px 12px 12px 2px;border:1px solid var(--border);white-space:pre-wrap}
-.chat-msg.ai.thinking{color:var(--muted);font-style:italic}
-.chat-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid var(--border);background:#fff}
-.chat-input{flex:1;padding:10px 14px;border-radius:var(--rs);border:1.5px solid var(--border);font-size:14px;font-family:inherit;color:var(--text);outline:none;resize:none;min-height:42px;max-height:120px}
-.chat-input:focus{border-color:var(--primary)}
-.chat-send-btn{padding:10px 18px;background:var(--primary);color:#fff;border:none;border-radius:var(--rs);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s;white-space:nowrap}
-.chat-send-btn:disabled{opacity:.4;cursor:not-allowed}
-.chat-empty{text-align:center;padding:40px 20px;color:var(--muted)}
-.chat-empty-ic{font-size:32px;margin-bottom:8px}
-.chat-empty-t{font-size:14px;font-weight:600;margin-bottom:4px;color:var(--text)}
-.chat-empty-s{font-size:12px}
-.chat-clear{font-size:11px;color:var(--muted);text-align:right;padding:4px 16px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;width:100%}
-
 /* Animations */
 .fade{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
 .fade.in{opacity:1;transform:none}
@@ -265,6 +242,7 @@ footer p{font-size:13px;color:var(--muted)}
         <div class="provider-tabs">
           <button class="ptab active" id="pt-gemini" onclick="setProvider('gemini')">🔵 Gemini</button>
           <button class="ptab" id="pt-openai" onclick="setProvider('openai')">🟢 OpenAI</button>
+          <button class="ptab" id="pt-grok" onclick="setProvider('grok')">⚫ Grok</button>
           <button class="ptab" id="pt-openrouter" onclick="setProvider('openrouter')">🟠 OpenRouter</button>
         </div>
 
@@ -289,15 +267,6 @@ footer p{font-size:13px;color:var(--muted)}
         </div>
       </div>
 
-      <!-- MODE SWITCHER -->
-      <div class="mode-switch">
-        <button class="mode-btn active" id="mode-photo" onclick="setMode('photo')">📸 Photo se Solve</button>
-        <button class="mode-btn" id="mode-chat" onclick="setMode('chat')">💬 Question Pucho</button>
-      </div>
-
-      <!-- PHOTO MODE -->
-      <div id="photo-mode">
-
       <!-- Subject tabs -->
       <div class="tabs-row">
         <button class="tab active-phy" onclick="setSub('Physics',this)">⚡ Physics</button>
@@ -310,18 +279,32 @@ footer p{font-size:13px;color:var(--muted)}
         <button class="tab" onclick="setCls('12',this)">Class 12</button>
       </div>
 
-      <!-- Upload -->
-      <div class="upload-zone" id="uz">
-        <input type="file" id="fi" accept="image/*"/>
-        <div class="uz-ph" id="ph">
-          <div class="uz-ic">📋</div>
-          <div class="uz-t">Question ki photo choose karo</div>
-          <div class="uz-s">Gallery se screenshot ya paper photo</div>
-        </div>
-        <img id="prev" src="" alt=""/>
+      <!-- Mode switch: Photo vs Type -->
+      <div class="tabs-row">
+        <button class="tab active-cls" id="mode-photo" onclick="setMode('photo')">📸 Photo se</button>
+        <button class="tab" id="mode-text" onclick="setMode('text')">⌨️ Type karke</button>
       </div>
-      <button class="cam-btn" onclick="openCam()">📸 Camera se seedha photo lo</button>
-      <input type="file" id="ci" accept="image/*" capture="environment" style="display:none"/>
+
+      <!-- Upload (Photo mode) -->
+      <div id="photo-mode-block">
+        <div class="upload-zone" id="uz">
+          <input type="file" id="fi" accept="image/*"/>
+          <div class="uz-ph" id="ph">
+            <div class="uz-ic">📋</div>
+            <div class="uz-t">Question ki photo choose karo</div>
+            <div class="uz-s">Gallery se screenshot ya paper photo</div>
+          </div>
+          <img id="prev" src="" alt=""/>
+        </div>
+        <button class="cam-btn" onclick="openCam()">📸 Camera se seedha photo lo</button>
+        <input type="file" id="ci" accept="image/*" capture="environment" style="display:none"/>
+      </div>
+
+      <!-- Type doubt (Text mode) -->
+      <div id="text-mode-block" style="display:none">
+        <textarea id="doubt-text" class="api-input" style="width:100%;min-height:110px;resize:vertical;line-height:1.6;padding:12px 14px;margin-bottom:12px;font-family:inherit" placeholder="Apna doubt yahan type karo... jaise: 'Newton ke teesre law ka application ek example ke saath samjhao' ya poora MCQ question paste karo"></textarea>
+      </div>
+
       <button class="solve-btn" id="sb" disabled onclick="solve()">⚡ Solve Karo</button>
 
       <!-- Loader -->
@@ -333,7 +316,7 @@ footer p{font-size:13px;color:var(--muted)}
       <!-- Result -->
       <div class="result" id="res">
         <div class="tags-row" id="tags"></div>
-        <div class="res-top"><span style="font-size:18px">✅</span><span class="res-top-lbl">Correct Answer</span></div>
+        <div class="res-top" id="rtop"><span style="font-size:18px">✅</span><span class="res-top-lbl" id="rtop-lbl">Correct Answer</span></div>
         <div class="res-correct" id="rc"></div>
         <div class="cf-row">
           <span class="cf-lbl">AI Confidence</span>
@@ -350,26 +333,6 @@ footer p{font-size:13px;color:var(--muted)}
           <div class="tip-txt" id="tip"></div>
         </div>
       </div>
-
-      </div><!-- end photo-mode -->
-
-      <!-- CHAT MODE -->
-      <div id="chat-mode" style="display:none">
-        <div class="chat-box">
-          <div class="chat-messages" id="chat-messages">
-            <div class="chat-empty" id="chat-empty">
-              <div class="chat-empty-ic">🤖</div>
-              <div class="chat-empty-t">AI Study Assistant</div>
-              <div class="chat-empty-s">JEE/NEET ke koi bhi question pucho — Physics, Chemistry, Math, Biology!</div>
-            </div>
-          </div>
-          <button class="chat-clear" id="chat-clear-btn" onclick="clearChat()" style="display:none">🗑️ Chat clear karo</button>
-          <div class="chat-input-row">
-            <textarea class="chat-input" id="chat-input" placeholder="Question yahan likho... (e.g. Newton ka second law kya hai?)" rows="1" onkeydown="chatKeydown(event)"></textarea>
-            <button class="chat-send-btn" id="chat-send" onclick="sendChat()">Send ➤</button>
-          </div>
-        </div>
-      </div><!-- end chat-mode -->
 
     </div>
   </div>
@@ -452,106 +415,7 @@ footer p{font-size:13px;color:var(--muted)}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── MODE SWITCH ──
-var curMode = 'photo';
-function setMode(m){
-  curMode = m;
-  document.getElementById('photo-mode').style.display = m==='photo' ? 'block' : 'none';
-  document.getElementById('chat-mode').style.display = m==='chat' ? 'block' : 'none';
-  document.getElementById('mode-photo').classList.toggle('active', m==='photo');
-  document.getElementById('mode-chat').classList.toggle('active', m==='chat');
-}
-
-// ── CHAT ──
-var chatHistory = [];
-
-function chatKeydown(e){
-  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendChat(); }
-}
-
-function clearChat(){
-  chatHistory = [];
-  var cm = document.getElementById('chat-messages');
-  cm.innerHTML = '<div class="chat-empty" id="chat-empty"><div class="chat-empty-ic">🤖</div><div class="chat-empty-t">AI Study Assistant</div><div class="chat-empty-s">JEE/NEET ke koi bhi question pucho — Physics, Chemistry, Math, Biology!</div></div>';
-  document.getElementById('chat-clear-btn').style.display = 'none';
-}
-
-function addMsg(text, role){
-  var cm = document.getElementById('chat-messages');
-  var empty = document.getElementById('chat-empty');
-  if(empty) empty.remove();
-  document.getElementById('chat-clear-btn').style.display = 'block';
-  var div = document.createElement('div');
-  div.className = 'chat-msg ' + role;
-  div.textContent = text;
-  cm.appendChild(div);
-  cm.scrollTop = cm.scrollHeight;
-  return div;
-}
-
-async function sendChat(){
-  if(!apiKey){ toast('Pehle API key daalo!'); return; }
-  var inp = document.getElementById('chat-input');
-  var q = inp.value.trim();
-  if(!q) return;
-  inp.value = '';
-  inp.style.height = 'auto';
-
-  addMsg(q, 'user');
-  chatHistory.push({role:'user', content: q});
-
-  var btn = document.getElementById('chat-send');
-  btn.disabled = true;
-  var thinking = addMsg('AI soch raha hai... 🤔', 'ai thinking');
-
-  try{
-    var systemPrompt = 'You are ScoreUp AI — India ka best JEE/NEET study assistant. Answer in the same language as the question (Hindi or English). Give clear, step-by-step explanations with formulas. Be concise but thorough. Add exam tips when relevant.';
-    var messages = [{role:'user', content: systemPrompt + '\n\nStudent ka question: ' + q}];
-    if(chatHistory.length > 2){
-      messages = [{role:'user', content: systemPrompt}];
-      chatHistory.slice(-6).forEach(function(m){ messages.push(m); });
-    }
-
-    var reply = '';
-    if(curProvider === 'gemini'){
-      var gemMsgs = chatHistory.slice(-6).map(function(m){
-        return {role: m.role==='assistant'?'model':'user', parts:[{text:m.content}]};
-      });
-      var resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey,{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          system_instruction:{parts:[{text:systemPrompt}]},
-          contents: gemMsgs,
-          generationConfig:{temperature:0.3, maxOutputTokens:1500}
-        })
-      });
-      var data = await resp.json();
-      if(data.error) throw new Error(data.error.message);
-      reply = data.candidates[0].content.parts[0].text || '';
-    } else {
-      var baseURL = curProvider==='openai' ? 'https://api.openai.com/v1/chat/completions' : 'https://openrouter.ai/api/v1/chat/completions';
-      var model = curProvider==='openai' ? 'gpt-4o-mini' : 'google/gemini-2.0-flash-exp:free';
-      var hdrs = {'Content-Type':'application/json','Authorization':'Bearer '+apiKey};
-      if(curProvider==='openrouter'){hdrs['HTTP-Referer']='https://scoreupp.netlify.app';hdrs['X-Title']='ScoreUp';}
-      var oaMsgs = [{role:'system',content:systemPrompt}].concat(chatHistory.slice(-6));
-      var resp2 = await fetch(baseURL,{method:'POST',headers:hdrs,body:JSON.stringify({model:model,messages:oaMsgs,max_tokens:1500,temperature:0.3})});
-      var data2 = await resp2.json();
-      if(data2.error) throw new Error(data2.error.message||'API Error');
-      reply = data2.choices[0].message.content || '';
-    }
-
-    thinking.remove();
-    addMsg(reply, 'ai');
-    chatHistory.push({role:'assistant', content: reply});
-  } catch(err){
-    thinking.remove();
-    addMsg('❌ Error: ' + err.message, 'ai');
-  }
-  btn.disabled = false;
-}
-
-
+var img64=null, curSub='Physics', curCls='11';
 var curProvider = localStorage.getItem('su_provider') || 'gemini';
 var apiKey = localStorage.getItem('su_key_' + curProvider) || '';
 
@@ -566,12 +430,33 @@ var providerInfo = {
     hint: 'platform.openai.com se OpenAI API key lo',
     placeholder: 'sk-...'
   },
+  grok: {
+    name: 'Grok',
+    hint: 'console.x.ai se Grok (xAI) API key lo',
+    placeholder: 'xai-...'
+  },
   openrouter: {
     name: 'OpenRouter',
     hint: 'openrouter.ai se free API key lo (100+ models)',
     placeholder: 'sk-or-...'
   }
 };
+
+var curMode='photo';
+function setMode(m){
+  curMode=m;
+  document.getElementById('mode-photo').className = m==='photo' ? 'tab active-cls' : 'tab';
+  document.getElementById('mode-text').className = m==='text' ? 'tab active-cls' : 'tab';
+  document.getElementById('photo-mode-block').style.display = m==='photo' ? 'block' : 'none';
+  document.getElementById('text-mode-block').style.display = m==='text' ? 'block' : 'none';
+  document.getElementById('res').style.display='none';
+  updateSolveBtn();
+}
+function updateSolveBtn(){
+  var sb=document.getElementById('sb');
+  if(curMode==='photo'){ sb.disabled = !img64; }
+  else { sb.disabled = !document.getElementById('doubt-text').value.trim(); }
+}
 
 window.onload = function(){
   setProvider(curProvider, true);
@@ -644,15 +529,16 @@ function handleFile(f){
     p.src=e.target.result; p.style.display='block';
     document.getElementById('ph').style.display='none';
     document.getElementById('uz').classList.add('has-img');
-    document.getElementById('sb').disabled=false;
     document.getElementById('res').style.display='none';
     document.getElementById('ld').classList.remove('on');
+    updateSolveBtn();
   };
   r.readAsDataURL(f);
 }
 
 document.getElementById('fi').addEventListener('change',function(e){handleFile(e.target.files[0]);});
 document.getElementById('ci').addEventListener('change',function(e){handleFile(e.target.files[0]);});
+document.getElementById('doubt-text').addEventListener('input',updateSolveBtn);
 
 function toast(m){
   var t=document.getElementById('toast');
@@ -666,11 +552,16 @@ function startMsgs(){ mi=0; document.getElementById('lm').innerHTML=msgs[0]; mt=
 function stopMsgs(){ clearInterval(mt); }
 
 var prompt = function(){
-  return 'You are the best JEE/NEET AI solver for '+curSub+', Class '+curCls+'.\nLook at this MCQ image carefully and reply ONLY with valid JSON — no markdown, no extra text.\n\n{"subject":"'+curSub+'","class":"'+curCls+'","chapter":"chapter name","difficulty":"Easy/Medium/Hard","confidence":95,"correct_option":"A","correct_text":"full option text","explanation":"step by step solution with formulas, 4-5 lines","options":[{"letter":"A","text":"...","correct":true,"remark":"why correct"},{"letter":"B","text":"...","correct":false,"remark":"why wrong"},{"letter":"C","text":"...","correct":false,"remark":"why wrong"},{"letter":"D","text":"...","correct":false,"remark":"why wrong"}],"jee_tip":"one key shortcut or concept for exam"}\n\nRules: confidence=0-100. If Hindi question reply in Hindi. Show formula steps. Return ONLY JSON.';
+  var src = curMode==='text'
+    ? 'Read this student\'s typed doubt/question carefully (given below, could be an MCQ or an open explanation request)'
+    : 'Look at this MCQ image carefully';
+  var typedDoubt = curMode==='text' ? '\n\nSTUDENT\'S DOUBT:\n"'+document.getElementById('doubt-text').value.trim()+'"' : '';
+  return 'You are the best JEE/NEET AI solver for '+curSub+', Class '+curCls+'.\n'+src+' and reply ONLY with valid JSON — no markdown, no extra text.'+typedDoubt+'\n\n{"subject":"'+curSub+'","class":"'+curCls+'","chapter":"chapter name","difficulty":"Easy/Medium/Hard","confidence":95,"correct_option":"A","correct_text":"full option text","explanation":"step by step solution with formulas, 4-5 lines","options":[{"letter":"A","text":"...","correct":true,"remark":"why correct"},{"letter":"B","text":"...","correct":false,"remark":"why wrong"},{"letter":"C","text":"...","correct":false,"remark":"why wrong"},{"letter":"D","text":"...","correct":false,"remark":"why wrong"}],"jee_tip":"one key shortcut or concept for exam"}\n\nRules: confidence=0-100. If Hindi question reply in Hindi. Show formula steps. If the doubt is NOT an MCQ (e.g. "explain concept X"), still fill the JSON — put "N/A" for correct_option/correct_text, leave options as an empty array [], and put the full explanation in "explanation". Return ONLY JSON.';
 };
 
 async function solve(){
-  if(!img64){ toast('Pehle photo lo!'); return; }
+  if(curMode==='photo' && !img64){ toast('Pehle photo lo!'); return; }
+  if(curMode==='text' && !document.getElementById('doubt-text').value.trim()){ toast('Pehle apna doubt type karo!'); return; }
   if(!apiKey){
     toast('API key daalo pehle!');
     document.getElementById('key-input-area').style.display='block';
@@ -711,14 +602,14 @@ async function solve(){
 }
 
 async function callGemini(){
+  var parts = curMode==='photo'
+    ? [{inline_data:{mime_type:'image/jpeg',data:img64}},{text:prompt()}]
+    : [{text:prompt()}];
   var resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+apiKey,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({
-      contents:[{parts:[
-        {inline_data:{mime_type:'image/jpeg',data:img64}},
-        {text:prompt()}
-      ]}],
+      contents:[{parts:parts}],
       generationConfig:{temperature:0.1,maxOutputTokens:1500}
     })
   });
@@ -728,13 +619,17 @@ async function callGemini(){
 }
 
 async function callOpenAICompatible(){
-  var baseURL = curProvider === 'openai'
-    ? 'https://api.openai.com/v1/chat/completions'
-    : 'https://openrouter.ai/api/v1/chat/completions';
-
-  var model = curProvider === 'openai'
-    ? 'gpt-4o'
-    : 'qwen/qwen2.5-vl-72b-instruct:free';
+  var baseURL, model;
+  if(curProvider === 'openai'){
+    baseURL = 'https://api.openai.com/v1/chat/completions';
+    model = 'gpt-4o';
+  } else if(curProvider === 'grok'){
+    baseURL = 'https://api.x.ai/v1/chat/completions';
+    model = curMode==='photo' ? 'grok-2-vision-1212' : 'grok-2-latest';
+  } else {
+    baseURL = 'https://openrouter.ai/api/v1/chat/completions';
+    model = 'qwen/qwen2.5-vl-72b-instruct:free';
+  }
 
   var headers = {
     'Content-Type':'application/json',
@@ -745,18 +640,16 @@ async function callOpenAICompatible(){
     headers['X-Title'] = 'ScoreUp';
   }
 
+  var content = curMode==='photo'
+    ? [{type:'image_url',image_url:{url:'data:image/jpeg;base64,'+img64}},{type:'text',text:prompt()}]
+    : [{type:'text',text:prompt()}];
+
   var resp = await fetch(baseURL,{
     method:'POST',
     headers: headers,
     body:JSON.stringify({
       model: model,
-      messages:[{
-        role:'user',
-        content:[
-          {type:'image_url',image_url:{url:'data:image/jpeg;base64,'+img64}},
-          {type:'text',text:prompt()}
-        ]
-      }],
+      messages:[{role:'user',content:content}],
       max_tokens:1500,
       temperature:0.1
     })
@@ -777,7 +670,17 @@ function renderResult(j){
     '<span class="rtag t-ch">'+esc(j.chapter||'—')+'</span>'+
     '<span class="rtag '+dc+'">'+esc(j.difficulty||'—')+'</span>';
 
-  document.getElementById('rc').textContent=(j.correct_option||'?')+') '+(j.correct_text||'');
+  var isMcq = j.options && j.options.length && j.correct_option && j.correct_option.toUpperCase()!=='N/A';
+  if(isMcq){
+    document.getElementById('rtop').style.display='flex';
+    document.getElementById('rtop-lbl').textContent='Correct Answer';
+    document.getElementById('rc').style.display='block';
+    document.getElementById('rc').textContent=(j.correct_option||'?')+') '+(j.correct_text||'');
+  } else {
+    document.getElementById('rtop').style.display='flex';
+    document.getElementById('rtop-lbl').textContent='Doubt Solved';
+    document.getElementById('rc').style.display='none';
+  }
 
   var conf=Math.min(100,Math.max(0,parseInt(j.confidence)||85));
   setTimeout(function(){
